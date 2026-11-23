@@ -4,6 +4,7 @@ public class ProductDSA {
     int productCount = 0;
     int nextId = 1;
 
+    
     // Add product: Array insertion
     public boolean addProduct(String name, double price, int quantity) {
 
