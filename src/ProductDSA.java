@@ -3,7 +3,7 @@ public class ProductDSA {
 
     Product[] products = new Product[200];
     int productCount = 0;
-    int nextId = 1;
+    int nextId = 1; 
 
     // Add product: Array insertion
     public boolean addProduct(String name, double price, int quantity) {
