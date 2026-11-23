@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Shop Management</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <span class="brand-icon">S</span>
+
+            <div>
+                Smart Shop
+                <small>Management System</small>
+            </div>
+        </div>
+
+        <div class="nav-label">WORKSPACE</div>
+
+        <button class="nav active" data-view="dashboard">
+            ▦ <span>Dashboard</span>
+        </button>
+
+        <button class="nav" data-view="products">
+            ▤ <span>Products</span>
+        </button>
+
+        <button class="nav" data-view="sales">
+            ▧ <span>Sales & Invoices</span>
+        </button>
+
+        <div class="sidebar-bottom">
+            DSA Project · Java Arrays
+        </div>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <p class="eyebrow">SHOP MANAGEMENT</p>
+                <h1 id="pageTitle">Dashboard</h1>
+            </div>
+
+            <div class="status">
+                <i></i> System running
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+
+        <section id="dashboard" class="view">
+
+            <div class="welcome">
+
+                <div>
+                    <p class="eyebrow light">OVERVIEW</p>
+
+                    <h2>Good day, Shopkeeper</h2>
+
+                    <p>
+                        Manage your products and keep track of daily sales.
+                    </p>
+                </div>
+
+                <div class="welcome-mark">S</div>
+
+            </div>
+
+
+            <div class="stats">
+
+                <article class="stat">
+                    <span>Total Products</span>
+                    <strong id="productCount">0</strong>
+                    <small>Products in inventory</small>
+                </article>
+
+                <article class="stat">
+                    <span>Total Stock Units</span>
+                    <strong id="stockCount">0</strong>
+                    <small>Units available</small>
+                </article>
+
+                <article class="stat">
+                    <span>Sales Recorded</span>
+                    <strong id="salesCount">0</strong>
+                    <small>Recorded transactions</small>
+                </article>
+
+                <article class="stat">
+                    <span>Sales Revenue</span>
+                    <strong id="revenue">Rs. 0</strong>
+                    <small>Total recorded sales</small>
+                </article>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-head">
+
+                    <div>
+                        <h3>Recent Products</h3>
+                        <p>Your latest inventory overview</p>
+                    </div>
+
+                    <button class="text-button" data-go="products">
+                        View all →
+                    </button>
+
+                </div>
+
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Product ID</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Stock Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="dashboardProducts"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PRODUCTS -->
+
+        <section id="products" class="view hidden">
+
+            <div class="toolbar">
+
+                <div>
+                    <h2>Product Inventory</h2>
+                    <p>
+                        Add, search, update and organize your products.
+                    </p>
+                </div>
+
+                <button class="primary" id="showAdd">
+                    ＋ Add Product
+                </button>
+
+            </div>
+
+
+            <!-- ADD PRODUCT FORM -->
+
+            <div class="panel form-panel hidden" id="addPanel">
+
+                <div class="panel-head">
+
+                    <div>
+                        <h3>Add New Product</h3>
+                        <p>Enter product details below.</p>
+                    </div>
+
+                    <button class="close" id="closeAdd">×</button>
+
+                </div>
+
+
+                <form id="addForm" class="fields">
+
+                    <label>
+                        Product Name
+
+                        <input
+                            name="name"
+                            required
+                            maxlength="60"
+                            placeholder="e.g. Rice"
+                        >
+                    </label>
+
+
+                    <label>
+                        Price (Rs.)
+
+                        <input
+                            name="price"
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            required
+                            placeholder="0"
+                        >
+                    </label>
+
+
+                    <label>
+                        Quantity
+
+                        <input
+                            name="quantity"
+                            type="number"
+                            min="0"
+                            required
+                            placeholder="0"
+                        >
+                    </label>
+
+
+                    <button class="primary" type="submit">
+                        Save Product
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- PRODUCT TABLE -->
+
+            <div class="panel">
+
+                <div class="controls">
+
+                    <input
+                        id="searchInput"
+                        placeholder="Search by product name or ID..."
+                    >
+
+                    <select id="sortBy">
+
+                        <option value="name">Sort by Name</option>
+                        <option value="price">Sort by Price</option>
+                        <option value="quantity">Sort by Quantity</option>
+
+                    </select>
+
+
+                    <select id="sortOrder">
+
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+
+                    </select>
+
+
+                    <button class="secondary" id="sortButton">
+                        Apply Sort
+                    </button>
+
+                    <button class="secondary" id="resetSearch">
+                        Reset
+                    </button>
+
+                </div>
+
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Product</th>
+                                <th>ID</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="productRows"></tbody>
+
+                    </table>
+
+                </div>
+
+
+                <div class="table-foot" id="productFoot"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SALES -->
+
+        <section id="sales" class="view hidden">
+
+            <div class="toolbar">
+
+                <div>
+                    <h2>Sales & Invoices</h2>
+
+                    <p>
+                        Record a sale and automatically update available stock.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- SALE FORM -->
+
+            <div class="panel sale-panel">
+
+                <h3>Record a Sale</h3>
+
+                <form id="saleForm" class="fields">
+
+                    <label>
+                        Choose Product
+
+                        <select name="id" id="saleProduct" required>
+                        </select>
+
+                    </label>
+
+
+                    <label>
+                        Quantity
+
+                        <input
+                            name="quantity"
+                            type="number"
+                            min="1"
+                            required
+                            placeholder="Quantity to sell"
+                        >
+                    </label>
+
+
+                    <button class="primary" type="submit">
+                        Record Sale
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- INVOICE HISTORY -->
+
+            <div class="panel">
+
+                <div class="panel-head">
+
+                    <div>
+                        <h3>Invoice History</h3>
+                        <p>Sales recorded during this session</p>
+                    </div>
+
+                </div>
+
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Invoice #</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Total</th>
+                                <th>Date & Time</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="salesRows"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <div id="toast" class="toast"></div>
+
+
+        <footer>
+            Smart Shop Management System
+
+            <span>
+                Data Structures & Algorithms · Java
+            </span>
+        </footer>
+
+    </main>
+
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
