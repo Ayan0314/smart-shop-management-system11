@@ -284,7 +284,7 @@ public class Main {
         );
     }
 
-    // SALES AND STOCK UPDATE
+    // SALES AND STOCK UPDATE 
 
     private static void sellProduct(HttpExchange ex)
             throws IOException {
