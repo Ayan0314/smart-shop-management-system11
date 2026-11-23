@@ -18,3 +18,5 @@ public class Sale {
         this.dateTime = dateTime;
     }
 }
+
+
