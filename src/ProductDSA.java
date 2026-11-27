@@ -1,11 +1,10 @@
-
 public class ProductDSA {
 
     Product[] products = new Product[200];
     int productCount = 0;
-    int nextId = 1; 
+    int nextId = 1;
 
-    // Add product: Array insertion
+    // Add product
     public boolean addProduct(String name, double price, int quantity) {
 
         if (productCount >= products.length) {
@@ -19,7 +18,7 @@ public class ProductDSA {
         return true;
     }
 
-    // View products: Array traversal
+    // View products
     public Product[] getProducts() {
         return products;
     }
@@ -28,7 +27,7 @@ public class ProductDSA {
         return productCount;
     }
 
-    // Access product using ID
+    // Find product by ID
     public Product findById(int id) {
 
         for (int i = 0; i < productCount; i++) {
@@ -57,7 +56,7 @@ public class ProductDSA {
         return true;
     }
 
-    // Delete product: Shift array elements
+    // Delete product
     public boolean deleteProduct(int id) {
 
         int index = -1;
@@ -110,6 +109,34 @@ public class ProductDSA {
         return finalResults;
     }
 
+    // Manually compare two product names
+    public int compareNames(String name1, String name2) {
+
+        int i = 0;
+
+        while (i < name1.length() && i < name2.length()) {
+
+            char ch1 = name1.charAt(i);
+            char ch2 = name2.charAt(i);
+
+            if (ch1 >= 'A' && ch1 <= 'Z') {
+                ch1 = (char)(ch1 + 32);
+            }
+
+            if (ch2 >= 'A' && ch2 <= 'Z') {
+                ch2 = (char)(ch2 + 32);
+            }
+
+            if (ch1 != ch2) {
+                return ch1 - ch2;
+            }
+
+            i++;
+        }
+
+        return name1.length() - name2.length();
+    }
+
     // Bubble Sort: Sort products by name
     public void bubbleSort(String order) {
 
@@ -117,12 +144,17 @@ public class ProductDSA {
 
             for (int j = 0; j < productCount - i - 1; j++) {
 
-                int comparison = products[j].name.compareToIgnoreCase(
+                int comparison = compareNames(
+                        products[j].name,
                         products[j + 1].name);
 
-                boolean swap = order.equals("asc")
-                        ? comparison > 0
-                        : comparison < 0;
+                boolean swap;
+
+                if (order.equals("asc")) {
+                    swap = comparison > 0;
+                } else {
+                    swap = comparison < 0;
+                }
 
                 if (swap) {
                     Product temp = products[j];
@@ -153,9 +185,13 @@ public class ProductDSA {
                     selectedValue = products[selected].quantity;
                 }
 
-                boolean shouldSelect = order.equals("asc")
-                        ? current < selectedValue
-                        : current > selectedValue;
+                boolean shouldSelect;
+
+                if (order.equals("asc")) {
+                    shouldSelect = current < selectedValue;
+                } else {
+                    shouldSelect = current > selectedValue;
+                }
 
                 if (shouldSelect) {
                     selected = j;
